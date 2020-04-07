@@ -162,8 +162,8 @@ func ExampleDAG_DotGraph() {
 	// Output:
 	// digraph depgraph {
 	// rankdir=LR;
-	// 1 -> 2 [label="1 -> 2"]
-	// 1 -> 3 [label="1 -> 3"]
+	// "1" -> "2" [label="1 -> 2"]
+	// "1" -> "3" [label="1 -> 3"]
 	// "2";
 	// "3";
 	// }
