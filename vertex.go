@@ -76,7 +76,7 @@ func (v *Vertex) dotGraph(sb *strings.Builder) {
 	}
 
 	for _, child := range v.Children.Values() {
-		sb.WriteString(fmt.Sprintf(`%s -> %s [label="%s -> %s"]`, v.ID, child.(*Vertex).ID, v.ID, child.(*Vertex).ID))
+		sb.WriteString(fmt.Sprintf(`"%s" -> "%s" [label="%s -> %s"]`, v.ID, child.(*Vertex).ID, v.ID, child.(*Vertex).ID))
 		sb.WriteString("\n")
 	}
 }
