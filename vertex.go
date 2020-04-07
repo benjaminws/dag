@@ -19,6 +19,7 @@ package dag
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/goombaio/orderedset"
 )
@@ -66,4 +67,16 @@ func (v *Vertex) String() string {
 	result := fmt.Sprintf("ID: %s - Parents: %d - Children: %d - Value: %v\n", v.ID, v.Parents.Size(), v.Children.Size(), v.Value)
 
 	return result
+}
+
+func (v *Vertex) dotGraph(sb *strings.Builder) {
+	if v.Children.Size() == 0 {
+		sb.WriteString(fmt.Sprintf("\"%s\";\n", v.ID))
+		return
+	}
+
+	for _, child := range v.Children.Values() {
+		sb.WriteString(fmt.Sprintf(`%s -> %s [label="%s -> %s"]`, v.ID, child.(*Vertex).ID, v.ID, child.(*Vertex).ID))
+		sb.WriteString("\n")
+	}
 }

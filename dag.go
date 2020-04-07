@@ -19,6 +19,7 @@ package dag
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 
 	"github.com/goombaio/orderedmap"
@@ -223,4 +224,14 @@ func (d *DAG) String() string {
 	}
 
 	return result
+}
+
+func (d *DAG) DotGraph() string {
+	sb := &strings.Builder{}
+	sb.WriteString("digraph depgraph {\nrankdir=LR;\n")
+	for _, vertex := range d.vertices.Values() {
+		vertex.(*Vertex).dotGraph(sb)
+	}
+	sb.WriteString("}\n")
+	return sb.String()
 }

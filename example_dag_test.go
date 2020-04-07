@@ -20,7 +20,7 @@ package dag_test
 import (
 	"fmt"
 
-	"github.com/goombaio/dag"
+	"github.com/benjaminws/dag"
 )
 
 func ExampleDAG_vertices() {
@@ -119,4 +119,52 @@ func ExampleDAG_edges() {
 	// ID: 2 - Parents: 1 - Children: 1 - Value: <nil>
 	// ID: 3 - Parents: 1 - Children: 1 - Value: <nil>
 	// ID: 4 - Parents: 1 - Children: 0 - Value: <nil>
+}
+
+func ExampleDAG_DotGraph() {
+	dag1 := dag.NewDAG()
+
+	vertex1 := dag.NewVertex("1", nil)
+	vertex2 := dag.NewVertex("2", nil)
+	vertex3 := dag.NewVertex("3", nil)
+
+	err := dag1.AddVertex(vertex1)
+	if err != nil {
+		fmt.Printf("Can't add vertex to DAG: %s", err)
+		panic(err)
+	}
+
+	err = dag1.AddVertex(vertex2)
+	if err != nil {
+		fmt.Printf("Can't add vertex to DAG: %s", err)
+		panic(err)
+	}
+
+	err = dag1.AddVertex(vertex3)
+	if err != nil {
+		fmt.Printf("Can't add vertex to DAG: %s", err)
+		panic(err)
+	}
+
+	err = dag1.AddEdge(vertex1, vertex2)
+	if err != nil {
+		fmt.Printf("Can't add vertex to DAG: %s", err)
+		panic(err)
+	}
+
+	err = dag1.AddEdge(vertex1, vertex3)
+	if err != nil {
+		fmt.Printf("Can't add vertex to DAG: %s", err)
+		panic(err)
+	}
+
+	fmt.Print(dag1.DotGraph())
+	// Output:
+	// digraph depgraph {
+	// rankdir=LR;
+	// 1 -> 2 [label="1 -> 2"]
+	// 1 -> 3 [label="1 -> 3"]
+	// "2";
+	// "3";
+	// }
 }
